@@ -1,35 +1,60 @@
-# ✅ Java To-Do List Application
+import java.util.*;
 
-A simple **To-Do List** application built using Java. This console-based project allows users to manage their tasks by adding, viewing, and deleting to-do items. Perfect for beginners learning Java basics, file handling, and object-oriented programming.
+public class ToDoListApp {
+    static List<String> tasks = new ArrayList<>();
+    static Scanner sc = new Scanner(System.in);
 
-## 🧠 Features
+    public static void main(String[] args) {
+        int choice;
+        do {
+            System.out.println("\n--- To-Do List Menu ---");
+            System.out.println("1. Add Task\n2. View Tasks\n3. Remove Task\n0. Exit");
+            choice = sc.nextInt();
+            sc.nextLine();
 
-- Add new tasks
-- View all tasks
-- Remove tasks by index number
-- Console-based UI
+            switch (choice) {
+                case 1:
+                    addTask();
+                    break;
+                case 2:
+                    viewTasks();
+                    break;
+                case 3:
+                    removeTask();
+                    break;
+            }
+        } while (choice != 0);
 
-> (Optional) You can enhance this with file saving/loading or GUI support later.
+        System.out.println("Thanks for using To-Do List!");
+    }
 
-## 🛠️ Technologies Used
+    static void addTask() {
+        System.out.print("Enter task: ");
+        String task = sc.nextLine();
+        tasks.add(task);
+        System.out.println("Task added!");
+    }
 
-- **Java** (JDK 8 or higher)
-- **Scanner** class for user input
-- **ArrayList** for dynamic task storage
-- **Object-Oriented Programming** concepts
+    static void viewTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks!");
+            return;
+        }
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+    }
 
-## 📦 Getting Started
-
-Follow these steps to run the project locally:
-
-### ✅ Prerequisites
-
-- Java JDK installed (version 8+)
-- Git (for cloning the repo)
-- Terminal or IDE (IntelliJ, Eclipse, VSCode, etc.)
-
-### 📥 Clone the Repository
-
-```bash
-git clone https://github.com/NagisettiSurya/To-Do-List.git
-cd To-Do-List
+    static void removeTask() {
+        viewTasks();
+        System.out.print("Remove task number: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        if (n <= 0 || n > tasks.size()) {
+            System.out.println("Invalid number.");
+            return;
+        }
+        tasks.remove(n - 1);
+        System.out.println("Task removed.");
+    }
+}
